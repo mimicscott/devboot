@@ -1,0 +1,415 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  assertions:
+    - resource: Microsoft.Windows.Developer/OsVersion
+      directives:
+        description: Verify min OS version requirement
+        allowPrerelease: true
+      settings:
+        MinVersion: '10.0.22000'
+
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Pwsh
+      directives:
+        description: Install PowerShell 7
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Code
+      directives:
+        description: Install VisualStudio Code
+        allowPrerelease: true
+        uselatest: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Terminal
+      directives:
+        description: Install Windows Terminal
+        allowPrerelease: true
+      settings:
+        id: Microsoft.WindowsTerminal
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Git
+      directives:
+        description: Install Git
+        allowPrerelease: true
+        uselatest: true
+      settings:
+        id: Git.Git
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Chrome
+      directives:
+        description: Install Google Chrome
+        allowPrerelease: true
+      settings:
+        id: Google.Chrome
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: DotNet SDK 8
+      directives:
+        description: Install DotNet SDK 8
+        allowPrerelease: true
+      settings:
+        id: Microsoft.DotNet.SDK.8
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.Windows.Developer/HideFileExtensions
+      directives:
+        description: Hide file extensions
+        allowPrerelease: true
+      settings:
+        Ensure: Absent
+
+    - resource: ComputerManagementDsc/WindowsCapability
+      id: opensshCapability
+      directives:
+        description: Remove OpenSSH Client Capability
+        allowPrerelease: true
+      settings:
+        Name: OpenSSH.Client~~~~0.0.1.0
+        Ensure: Absent
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: OpenSSH Client
+      dependsOn:
+        - opensshCapability
+      directives:
+        description: Install OpenSSH Client
+        allowPrerelease: true
+      settings:
+        id: Microsoft.OpenSSH.Beta
+        source: winget
+        uselatest: true
+
+    - resource: PSDscResources/WindowsOptionalFeature
+      id: optionalFeatureHyperV
+      directives:
+        description: Enable Hyper-V
+        allowPrerelease: false
+      settings:
+        Name: Microsoft-Hyper-V-All
+        Ensure: Present
+
+    - resource: PSDscResources/WindowsOptionalFeature
+      id: optionalFeatureContainers
+      directives:
+        description: Enable Containers
+        allowPrerelease: false
+      settings:
+        Name: Containers
+        Ensure: Present
+
+    - resource: PSDscResources/WindowsOptionalFeature
+      id: optionalFeatureWSL
+      dependsOn:
+        - optionalFeatureHyperV
+      directives:
+        description: Enable WSL
+        allowPrerelease: false
+      settings:
+        Name: Microsoft-Windows-Subsystem-Linux
+        Ensure: Present
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Docker Desktop"
+      dependsOn:
+        - optionalFeatureWSL
+      directives:
+        description: Install Docker Desktop
+        allowPrerelease: true
+      settings:
+        id: Docker.DockerDesktop
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "WSL Ubuntu"
+      dependsOn:
+        - optionalFeatureWSL
+      directives:
+        description: Install WSL Ubuntu
+        allowPrerelease: true
+      settings:
+        id: Canonical.Ubuntu.2204
+        source: winget
+        uselatest: true
+
+#===================================================      
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Pwsh"
+      directives:
+        description: Install PowerShell 7
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Code"
+      directives:
+        description: Install VisualStudio Code
+        allowPrerelease: true
+        uselatest: true
+      settings:
+        id: Microsoft.VisualStudioCode
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Terminal"
+      directives:
+        description: Install Windows Terminal
+        allowPrerelease: true
+      settings:
+        id: Microsoft.WindowsTerminal
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Git"
+      directives:
+        description: Install Git
+        allowPrerelease: true
+        uselatest: true
+      settings:
+        id: Git.Git
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Chrome"
+      directives:
+        description: Install Google Chrome
+        allowPrerelease: true
+      settings:
+        id: Google.Chrome
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "DotNet SDK 8"
+      directives:
+        description: Install DotNet SDK 8
+        allowPrerelease: true
+      settings:
+        id: Microsoft.DotNet.SDK.8
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.Windows.Developer/HideFileExtensions
+      directives:
+        description: Hide file extensions
+        allowPrerelease: true
+      settings:
+        Ensure: Absent
+
+    - resource: ComputerManagementDsc/WindowsCapability
+      id: opensshCapability
+      directives:
+        description: Remove OpenSSH Client Capability
+        allowPrerelease: true
+      settings:
+        Name: OpenSSH.Client~~~~0.0.1.0
+        Ensure: Absent
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: OpenSSH Client
+      dependsOn:
+        - opensshCapability
+      directives:
+        description: Install OpenSSH Client
+        allowPrerelease: true
+      settings:
+        id: Microsoft.OpenSSH.Beta
+        source: winget
+        uselatest: true
+
+    - resource: PSDscResources/WindowsOptionalFeature
+      id: optionalFeatureHyperV
+      directives:
+        description: Enable Hyper-V
+        allowPrerelease: false
+      settings:
+        Name: Microsoft-Hyper-V-All
+        Ensure: Present
+
+    - resource: PSDscResources/WindowsOptionalFeature
+      id: optionalFeatureContainers
+      directives:
+        description: Enable Containers
+        allowPrerelease: false
+      settings:
+        Name: Containers
+        Ensure: Present
+
+    - resource: PSDscResources/WindowsOptionalFeature
+      id: optionalFeatureWSL
+      dependsOn:
+        - optionalFeatureHyperV
+      directives:
+        description: Enable WSL
+        allowPrerelease: false
+      settings:
+        Name: Microsoft-Windows-Subsystem-Linux
+        Ensure: Present
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "Docker Desktop"
+      dependsOn:
+        - optionalFeatureWSL
+      directives:
+        description: Install Docker Desktop
+        allowPrerelease: true
+      settings:
+        id: Docker.DockerDesktop
+        source: winget
+        uselatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: "WSL Ubuntu"
+      dependsOn:
+        - optionalFeatureWSL
+      directives:
+        description: Install WSL Ubuntu
+        allowPrerelease: true
+      settings:
+        id: Canonical.Ubuntu.2204
+        source: winget
+        uselatest: true
+#====================================================        
+    # Enable Developer Mode
+    - resource: Microsoft.Windows.Developer/DeveloperMode
+      directives:
+        description: Enable Developer Mode
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+
+    # 7-Zip
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: 7Zip
+      directives:
+        description: Install 7-Zip
+        allowPrerelease: false
+      settings:
+        id: "7zip.7zip"
+        source: winget
+
+    # Command Line
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: PowerShell
+      directives:
+        description: Install PowerShell
+        allowPrerelease: false
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
+
+    # WSL
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: WSL
+      directives:
+        description: Install Windows Subsystem for Linux
+        allowPrerelease: false
+      settings:
+        id: "9P9TQF7MRM4R"
+        source: msstore
+
+    # WSL Ubuntu 22.04
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      dependsOn:
+        - WSL
+      id: UbuntuWSL2
+      directives:
+        description: Install Ubuntu WSL2
+        allowPrerelease: false
+      settings:
+        id: Canonical.Ubuntu.2204
+        source: winget
+
+    # Git
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Git
+      directives:
+        description: Install Git
+        allowPrerelease: true
+      settings:
+        id: Git.Git
+        source: winget
+
+    # GitHub Cli
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: GitHubCli
+      directives:
+        description: Install GitHub Cli
+        allowPrerelease: true
+      settings:
+        id: GitHub.cli
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: GitHubDesktop
+      directives:
+        description: Install GitHub Desktop
+        allowPrerelease: true
+      settings:
+        id: GitHub.GitHubDesktop
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: VisualStudio
+      directives:
+        description: Install Visual Studio 2022 Professional
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudio.2022.Professional
+        source: winget
+
+    - resource: Microsoft.VisualStudio.DSC/VSComponents
+      dependsOn:
+        - VisualStudio
+      directives:
+        description: Install required VS workloads from vsconfig file
+        allowPrerelease: true
+      settings:
+        productId: Microsoft.VisualStudio.Product.Professional
+        channelId: VisualStudio.17.Release
+        vsConfigFile: '${WinGetConfigRoot}\.vsconfig'
+        includeRecommended: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: DevTunnel
+      directives:
+        description: Install DevTunnel
+        allowPrerelease: true
+      settings:
+        id: Microsoft.devtunnel
+        source: winget
+
+    # DockerDesktop
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: DockerDesktop
+      directives:
+        description: Install Docker Desktop
+        allowPrerelease: false
+      settings:
+        id: Docker.DockerDesktop
+        source: winget

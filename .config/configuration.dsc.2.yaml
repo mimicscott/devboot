@@ -1,0 +1,130 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  assertions:
+    - resource: Microsoft.Windows.Developer/OsVersion
+      directives:
+        description: Verify min OS version requirement
+        allowPrerelease: true
+      settings:
+        MinVersion: '10.0.22000'
+
+  resources:
+    # Windows Features
+    - resource: Microsoft.Windows.Developer/DeveloperMode
+      directives:
+        description: Enable Developer Mode
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+
+    # Utilities
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: 7Zip
+      directives:
+        description: Install 7-Zip
+        allowPrerelease: false
+      settings:
+        id: "7zip.7zip"
+        source: winget
+
+    # Command Line
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: PowerShell
+      directives:
+        description: Install PowerShell
+        allowPrerelease: false
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: WSL
+      directives:
+        description: Install Windows Subsystem for Linux
+        allowPrerelease: false
+      settings:
+        id: "9P9TQF7MRM4R"
+        source: msstore
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      dependsOn:
+        - WSL
+      id: UbuntuWSL2
+      directives:
+        description: Install Ubuntu WSL2
+        allowPrerelease: false
+      settings:
+        id: Canonical.Ubuntu.2204
+        source: winget
+
+    # Developer Tools
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: Git
+      directives:
+        description: Install Git
+        allowPrerelease: true
+      settings:
+        id: Git.Git
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: GitHubCli
+      directives:
+        description: Install GitHub Cli
+        allowPrerelease: true
+      settings:
+        id: GitHub.cli
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: GitHubDesktop
+      directives:
+        description: Install GitHub Cli
+        allowPrerelease: true
+      settings:
+        id: GitHub.GitHubDesktop
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: VSCode
+      directives:
+        description: Install Visual Studio Code
+        allowPrerelease: false
+      settings:
+        id: "XP9KHM4BK9FZ7Q" 
+        source: msstore
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: VisualStudio
+      directives:
+        description: Install Visual Studio 2022 Community
+        allowPrerelease: true
+      settings:
+        id: Microsoft.VisualStudio.2022.Community.Preview
+        source: winget
+    - resource: Microsoft.VisualStudio.DSC/VSComponents
+      dependsOn:
+        - VisualStudio
+      directives:
+        description: Install required VS workloads from vsconfig file
+        allowPrerelease: true
+      settings:
+        productId: Microsoft.VisualStudio.Product.Community
+        channelId: VisualStudio.17.Release
+        vsConfigFile: '${WinGetConfigRoot}\.vsconfig'
+        includeRecommended: true
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: DevTunnel
+      directives:
+        description: Install GitHub Cli
+        allowPrerelease: true
+      settings:
+        id: Microsoft.devtunnel
+        source: winget
+
+    # Containers/Kubernetes
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: DockerDesktop
+      directives:
+        description: Install Docker Desktop
+        allowPrerelease: false
+      settings:
+        id: Docker.DockerDesktop
+        source: winget

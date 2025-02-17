@@ -1,0 +1,122 @@
+cd \temp
+curl -O https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx
+cmd
+iex
+irm
+irm https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx
+cd \temp
+Add-AppxPackage -Path .\Microsoft.VCLibs.x64.14.00.Desktop.appx
+Add-AppxPackage -Path .\Microsoft.UI.Xaml.2.8.appx
+Add-AppxProvisionedPackage -Online -PackagePath ".\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -LicensePath .\73954d58312742d9a19fea7b6c199246_License1.xml -verbose
+winget
+Add-AppxProvisionedPackage -Online -PackagePath ".\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -verbose
+Add-AppxProvisionedPackage -Online -PackagePath ".\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -LicensePath .\73954d58312742d9a19fea7b6c199246_License1.xml -verbose
+winget
+Get-ExecutionPolicy
+ Add-AppxPackage "https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx"
+Add-AppxPackage "https://aka.ms/Microsoft.VCLibs.x86.14.00.Desktop.appx"
+Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.0" -OutFile "microsoft.ui.xaml.2.7.0.zip"
+Expand-Archive .\microsoft.ui.xaml.2.7.0.zip
+ Add-AppPackage .\microsoft.ui.xaml.2.7.0\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
+Add-AppPackage .\microsoft.ui.xaml.2.7.0\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appxe
+Add-AppPackage .\microsoft.ui.xaml.2.7.0\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appx\
+Add-AppPackage .\microsoft.ui.xaml.2.7.0\tools\AppX\x86\Release\Microsoft.UI.Xaml.2.7.appx
+Install-Module -Name Microsoft.WinGet.Client
+refreshenv
+Repair-WinGetPackageManager
+winget
+winget import -i .\winget-packages.json --accept-package-agreements --accept-source-agreements 
+cd \temp
+winget import -i .\winget-packages.json
+winget import -i .\winget-store-packages.json
+choco import --help
+choco import -help
+choco import /?
+cmd
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+choco import /?
+choco import -help
+choco import --help
+choco import -?
+choco export --help
+choco help
+choco install --help
+choco install .\choco-packages.config
+cmd
+cmd
+winget search visualstudio
+winget remove Microsoft.VisualStudio.2022.Community
+winget search management
+winget search engine
+winget search intel
+wg install Intel.IntelDriverAndSupportAssistant
+winget install Intel.IntelDriverAndSupportAssistant
+winget isntall
+winget install
+cd C:\users\Rono\Documents\
+winget install -e -h --id Microsoft.VisualStudio.2022.Professional --silent --override "--wait --quiet --addProductLang En-us --config .vsconfig"
+winget install -e --verbose --id Microsoft.VisualStudio.2022.Professional --passive --override "--wait --quiet --addProductLang En-us --config .vsconfig"
+winget install -e --verbose --id Microsoft.VisualStudio.2022.Professional --silent --override "--wait --passive --addProductLang En-us --config .vsconfig"
+winget install -e --verbose --id Microsoft.VisualStudio.2022.Professional --override "--wait --passive --addProductLang En-us --config .vsconfig"
+cd .\Documents\
+dir
+winget install --id Microsoft.VisualStudio.2022.Professional --override "--passive --config .vsconfig"
+cd ..
+git clone https://github.com/BerndtGroup/devboot
+cd .\devboot\
+winver
+dir
+.\devboot.ps1
+winget configure -f .winget\configuration.dsc.yaml
+cd ..
+winget configure -f .winget\configuration.dsc.yaml
+cd ..
+cd .\Users\Rono\devboot\
+winget configure -f .winget\configuration.dsc.yaml --verbose
+Get-VM | Format-Table Name, IntegrationServicesVersion
+Get-VMIntegrationService -VMName "Ubuntu 20.04"
+Get-VMIntegrationService -VMName "Ubuntu 20.04 LTS"
+sc
+cmd
+Copy
+Get-ComputerInfo -property "HyperV*"
+Get-VMAssignableDevice
+Get-VMNetworkAdapter
+Get-VMSwitch
+get-vmhost
+get-vmhost .
+set-vmhost .
+get-vmhost .
+Get-VMNetworkAdapter
+Get-VMNetworkAdapter .
+Get-VMNetworkAdapter -ComputerName .
+Get-VMSwitch
+Get-VMAssignableDevice
+Get-VMNetworkAdapter -ManagementOS
+Remove-VMNetworkAdapter -SwitchName 89a0f35a
+Get-VMNetworkAdapter -VMName *
+Get-VMNetworkAdapter -all
+set-vmhost
+set-vmhost .
+set-vmhost -ComputerName .
+Remove-VMSwitch "Container NIC f49a76e2"
+Get-VMSwitch
+Get-VMSwitch -all
+Get-VMSwitch -Id 5c7246c8
+Get-VMSwitch -name 5c7246c8
+winget install cpu-z
+wmic list computersystem /format:list
+wmic computersystem get /format:list
+wmic 
+wmic list
+wmic /?
+wmic nic
+wmic nicconfig
+wmic nicconfig get /format:list
+wmic nic get /format:list
+ipconfig
+ipconfig /all
+get-history -Count 1000
+echo $profile
+cd \
+cmd
