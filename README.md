@@ -32,7 +32,8 @@ This could/should be very useful to help save probably hours per developer reins
 `Start-BitsTransfer -Source "https://raw.githubusercontent.com/mimicscott/devboot/main/devboot.ps1"; .\devboot.ps1`
 ### From a private repo:
  - Run the script (in an admin-elevated PowerShell session) like this:<br/>
-```$userorg = "userorg"; ` 
+```
+$userorg = "userorg"; ` 
 Start-Process "https://github.$userorg.com"; `
 Read-Host -Prompt "Log into GitHub in browser and then press Enter to continue"; `
 Install-Script Install-Git -Scope CurrentUser -Force; `
@@ -46,9 +47,10 @@ else { `
     Remove-Item -Path $devbootPath -Recurse -Force; `
     mkdir $devbootPath; `
 } `
-git clone "https://github.com/$userorg/devboot.git" "C:\$userorg-devboot"; ``
+git clone "https://github.com/$userorg/devboot.git" "C:\$userorg-devboot"; `
 Push-Location "C:\$userorg-devboot"; `
-.\publish-module.ps1```
+.\publish-module.ps1
+```
 ### Then, from either:
 - Type `y` when prompted to confirm the safety of the source of the configuration you are applying.
 - The folder with the logs from the run will be displayed after the run is completed. 
