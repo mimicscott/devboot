@@ -1,4 +1,5 @@
 
+# Set-WinGetUserSetting -UserSettings @{ experimentalFeatures = @{ directMSI = $true; resume = $true; configureSelfElevate = $true } }
 
 $path = "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json"
 $content = @"
